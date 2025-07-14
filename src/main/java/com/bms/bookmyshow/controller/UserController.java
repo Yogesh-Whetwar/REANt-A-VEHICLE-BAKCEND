@@ -37,8 +37,8 @@ public ResponseEntity<List<User>> getUsers(){
      return ResponseEntity.ok(users);
 }  
 
-@GetMapping("/get/{id}")
-public ResponseEntity<User> getUserById(@PathVariable Long id){
+@GetMapping("/get")
+public ResponseEntity<User> getUserById(@RequestParam Long id){
     User user = userService.getUserById(id);
     return ResponseEntity.ok(user);
 }
@@ -63,8 +63,8 @@ public boolean checkUser(@RequestBody User user){
      return res;
 }
 
-@GetMapping("/getProfileIdByEmail/{email}")
-public ResponseEntity<Long> getUserByEmail(@PathVariable String email) {
+@GetMapping("/getProfileIdByEmail")
+public ResponseEntity<Long> getUserByEmail(@RequestParam String email) {
     Long id = userService.getUserIdByEmail(email);
     return ResponseEntity.ok(id);
 
