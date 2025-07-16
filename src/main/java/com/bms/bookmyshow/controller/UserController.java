@@ -22,6 +22,7 @@ import com.bms.bookmyshow.service.UserService;
 @RequestMapping("/users")
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
+    //commit from yogi
       //just added for fun
 @Autowired
 private UserService userService;
