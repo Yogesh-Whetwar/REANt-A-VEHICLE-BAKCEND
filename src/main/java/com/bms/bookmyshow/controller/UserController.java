@@ -18,57 +18,69 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bms.bookmyshow.model.User;
 import com.bms.bookmyshow.service.UserService;
 
+
+/*
+ * COMMENT FOR ME TO REMEMBER:
+ * POST /users/create: Create new user
+ * GET /users/getAll: Get all users
+ * GET /users/get?id=X: Get user by ID
+ * DELETE /users/delete/{id}: Delete user
+ * PUT /users/update/{id}: Update user
+ * POST /users/check: Validate login (checking email + password)
+ * GET /users/getProfileIdByEmail: Get user ID using email
+
+ */
+
 @RestController
 @RequestMapping("/users")
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
-      //just added for fun
-@Autowired
-private UserService userService;
+    // just added for fun
+    @Autowired
+    private UserService userService;
 
-@PostMapping("/create")
-public void createUser(@RequestBody User user){
-    userService.createUser(user);
-}  
+    @PostMapping("/create")
+    public void createUser(@RequestBody User user) {
+        userService.createUser(user);
+    }
 
-@GetMapping("/getAll")
-public ResponseEntity<List<User>> getUsers(){
-     List<User>users=userService.getUsers();
-     return ResponseEntity.ok(users);
-}  
+    @GetMapping("/getAll")
+    public ResponseEntity<List<User>> getUsers() {
+        List<User> users = userService.getUsers();
+        return ResponseEntity.ok(users);
+    }
 
-@GetMapping("/get")
-public ResponseEntity<User> getUserById(@RequestParam Long id){
-    User user = userService.getUserById(id);
-    return ResponseEntity.ok(user);
-}
+    @GetMapping("/get")
+    public ResponseEntity<User> getUserById(@RequestParam Long id) {
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
+    }
 
-@DeleteMapping("/delete/{id}")
-public void deleteUser(@PathVariable Long id) {
-    userService.deleteUser(id);
-    ResponseEntity.ok("User deleted successfully");     
-}  
+    @DeleteMapping("/delete/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        ResponseEntity.ok("User deleted successfully");
+    }
 
-@PutMapping("/update/{id}")
-public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {   
+    @PutMapping("/update/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
 
-    //passing id and user object to service layer
-    User updatedUser = userService.updateUser(id, user);
-    return ResponseEntity.ok(updatedUser);  
-}  
+        // passing id and user object to service layer
+        User updatedUser = userService.updateUser(id, user);
+        return ResponseEntity.ok(updatedUser);
+    }
 
-@PostMapping("/check")
-public boolean checkUser(@RequestBody User user){
-     boolean res=userService.checkuser(user);
-     return res;
-}
+    @PostMapping("/check")
+    public boolean checkUser(@RequestBody User user) {
+        boolean res = userService.checkuser(user);
+        return res;
+    }
 
-@GetMapping("/getProfileIdByEmail")
-public ResponseEntity<Long> getUserByEmail(@RequestParam String email) {
-    Long id = userService.getUserIdByEmail(email);
-    return ResponseEntity.ok(id);
+    @GetMapping("/getProfileIdByEmail")
+    public ResponseEntity<Long> getUserByEmail(@RequestParam String email) {
+        Long id = userService.getUserIdByEmail(email);
+        return ResponseEntity.ok(id);
 
-}      
-
+    }
 
 }
