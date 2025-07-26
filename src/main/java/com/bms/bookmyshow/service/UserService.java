@@ -31,6 +31,7 @@ public class UserService {
         if(user.getName()==null || user.getEmail()==null || user.getPassword()==null){
             throw new RuntimeException("Users details can not be empty");
         }  
+        user.setRole("User");
     userRepository.save(user);
     }
 
@@ -62,7 +63,10 @@ public class UserService {
             User existingUser = existingUserOpt.get();
             existingUser.setName(user.getName());
             existingUser.setEmail(user.getEmail());
-            existingUser.setPassword(user.getPassword());
+            existingUser.setPassword(user.getPassword()); 
+            if(existingUser.getRole() == "User"){
+                existingUser.setRole("Vendor");
+            }
             return userRepository.save(existingUser);
         } else {
             throw new RuntimeException("User not found with id: " + id);
@@ -92,6 +96,17 @@ public class UserService {
        } else{
         throw new RuntimeException("EMAIL id is not present in the database");
        }
+    }
+
+    public void updateRole(String email, String role) {
+        Optional<User>user=userRepository.findByEmail(email);
+        if(user.isPresent()){
+             User currentUser=user.get();
+             currentUser.setRole(role);
+             userRepository.save(currentUser);
+        }else{
+            throw new RuntimeException("User with this email is not present");
+        }
     }
 
 

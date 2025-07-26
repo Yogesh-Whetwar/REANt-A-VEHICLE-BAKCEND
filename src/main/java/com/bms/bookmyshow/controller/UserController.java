@@ -1,6 +1,8 @@
 package com.bms.bookmyshow.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -70,6 +72,14 @@ public ResponseEntity<Long> getUserByEmail(@RequestParam String email) {
     return ResponseEntity.ok(id);
 
 }      
+
+@PutMapping("/updateRole")
+public ResponseEntity<Map<String,String>> updateUserRole(@RequestBody User user){
+    userService.updateRole(user.getEmail(),user.getRole());
+    Map<String,String>response=new HashMap<>();
+     response.put("message", "role is changed for user");
+   return ResponseEntity.ok(response);
+}
 
 
 }
